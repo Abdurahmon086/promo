@@ -1,9 +1,30 @@
-import { ModeToggle } from '@/components/shared/modal-toggle'
+import CompanyCard from '@/components/cards/company-card'
+import PromocodeCard from '@/components/cards/promocode-card'
+import { CheckSquare2Icon, HomeIcon } from 'lucide-react'
 
 export default function Home() {
 	return (
-		<div>
-			<ModeToggle />
-		</div>
+		<>
+			<section className='companies container my-10'>
+				<h4 className='title flex gap-2 items-center'>
+					<HomeIcon /> Companies
+				</h4>
+				<div className='grid grid-cols-6 gap-5 mt-3'>
+					{[1, 2, 3, 4, 5, 6].map((_item, i) => (
+						<CompanyCard key={i} />
+					))}
+				</div>
+			</section>
+			<section className='promocodes container my-10'>
+				<h4 className='title flex gap-2 items-center'>
+					<CheckSquare2Icon /> Promo Codes
+				</h4>
+				<div className='grid grid-cols-1'>
+					{[1, 2, 3, 4, 5, 6].map((_item, i) => (
+						<PromocodeCard key={i} />
+					))}
+				</div>
+			</section>
+		</>
 	)
 }
