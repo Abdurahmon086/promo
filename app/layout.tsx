@@ -1,8 +1,9 @@
+import Footer from '@/components/layouts/footer'
+import Header from '@/components/layouts/header'
 import { ThemeProvider } from '@/components/providers/theme.provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/layouts/header'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -31,7 +32,10 @@ export default function RootLayout({
 					<header className='fixed top-0 left-0 w-full bg-black/15'>
 						<Header />
 					</header>
-					<main>{children}</main>
+					<main className='mt-[64px] flex-grow '>{children}</main>
+					<footer>
+						<Footer />
+					</footer>
 				</ThemeProvider>
 			</body>
 		</html>
