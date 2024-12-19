@@ -7,6 +7,9 @@ export default {
 		extend: {
 			container: {
 				center: true,
+				screens: {
+					'2xl':'1140px'
+				}
 			},
 			colors: {
 				background: 'hsl(var(--background))',

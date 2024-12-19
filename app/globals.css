@@ -76,7 +76,14 @@ body {
 	}
 }
 
-
 .title {
 	@apply text-2xl font-bold hover:opacity-75;
 }
+
+.promocodes .card__wrapper {
+	position: relative;
+}
+
+/* .promocodes .card__wrapper .card__right {
+	@apply hover:origin-bottom-left hover:rotate-1;
+} */

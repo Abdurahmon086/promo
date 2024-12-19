@@ -19,10 +19,13 @@ export default function Home() {
 				<h4 className='title flex gap-2 items-center'>
 					<CheckSquare2Icon /> Promo Codes
 				</h4>
-				<div className='grid grid-cols-1'>
-					{[1, 2, 3, 4, 5, 6].map((_item, i) => (
-						<PromocodeCard key={i} />
-					))}
+				<div className='flex'>
+					<div className='grid grid-cols-1 gap-4 mt-5 w-3/4'>
+						{[1, 2, 3, 4, 5, 6].map((_item, i) => (
+							<PromocodeCard key={i} />
+						))}
+					</div>
+          <div className="w-1/4"></div>
 				</div>
 			</section>
 		</>
