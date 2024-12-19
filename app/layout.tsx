@@ -1,5 +1,3 @@
-import Footer from '@/components/layouts/footer'
-import Header from '@/components/layouts/header'
 import { ThemeProvider } from '@/components/providers/theme.provider'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
@@ -29,13 +27,7 @@ export default function RootLayout({
 		<html lang='en' suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
 				<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-					<header className='fixed top-0 left-0 w-full z-50 '>
-						<Header />
-					</header>
-					<main className='mt-[80px] flex-grow '>{children}</main>
-					<footer className='bg-background/90 border-2 shadow-2xl rounded-t-[50px] py-8'> 
-						<Footer />
-					</footer>
+					<div>{children}</div>
 				</ThemeProvider>
 			</body>
 		</html>
