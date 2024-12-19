@@ -29,7 +29,7 @@ export default function RootLayout({
 		<html lang='en' suppressHydrationWarning>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
 				<ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-					<header className='fixed top-0 left-0 w-full bg-black/85 z-50 text-white'>
+					<header className='fixed top-0 left-0 w-full bg-background/85 z-50 '>
 						<Header />
 					</header>
 					<main className='mt-[64px] flex-grow '>{children}</main>

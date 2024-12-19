@@ -4,11 +4,11 @@ import { Button } from '../ui/button'
 
 function PromocodeCard() {
 	return (
-		<div className='card__wrapper w-full h-40 flex rounded-2xl shadow-xl dark:shadow-slate-50/15 hover:scale-[1.01] transition-transform  overflow-hidden border'>
+		<div className='card__wrapper w-full h-40 flex rounded-2xl shadow-md shadow-primary/15 hover:scale-[1.01] transition-transform  overflow-hidden border'>
 			<div className='relative w-1/4 aspect-[1.7] rounded-tl-2xl rounded-bl-2xl overflow-hidden'>
 				<CustomImage src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnKxXiGcLHx_-SEJUH1wKHhsH7nrVarcCWFw&s' alt='company image' />
 			</div>
-			<div className='card__left w-2/4 py-3 text-black px-5 border-x'>
+			<div className='card__left w-2/4 py-3  px-5 border-x'>
 				<h4 className='text-xl font-medium'>«1=2»! Второе блюдо бесплатно к заказу!</h4>
 				<div className='flex items-center space-x-2 text-sm'>
 					<div className='flex gap-2 items-center'>
