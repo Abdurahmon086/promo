@@ -1,8 +1,13 @@
+'use client'
+import { createPromo } from '@/actions/promo.action'
 import CompanyCard from '@/components/cards/company-card'
 import PromocodeCard from '@/components/cards/promocode-card'
 import { CheckSquare2Icon, HomeIcon } from 'lucide-react'
 
-export default function Home() {
+function Home() {
+	const addSm = async () => {
+		await createPromo()
+	}
 	return (
 		<>
 			<section className='companies container my-10'>
@@ -16,7 +21,7 @@ export default function Home() {
 				</div>
 			</section>
 			<section className='promocodes container my-10'>
-				<h4 className='title flex gap-2 items-center'>
+				<h4 className='title flex gap-2 items-center' onClick={() => addSm()}>
 					<CheckSquare2Icon /> Promo Codes
 				</h4>
 				<div className='flex'>
@@ -25,9 +30,11 @@ export default function Home() {
 							<PromocodeCard key={i} />
 						))}
 					</div>
-          <div className="w-1/4"></div>
+					<div className='w-1/4'></div>
 				</div>
 			</section>
 		</>
 	)
 }
+
+export default Home

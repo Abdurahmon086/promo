@@ -13,36 +13,7 @@ import {
 } from '@/components/ui/sidebar'
 import Link from 'next/link'
 import Logo from './logo'
-
-const data = {
-	navMain: [
-		{
-			title: 'Getting Started',
-			url: '#',
-			items: [
-				{
-					title: 'Installation',
-					url: '#',
-				},
-				{
-					title: 'Project Structure',
-					url: '#',
-				},
-			],
-		},
-		{
-			title: 'Building Your Promo code',
-			url: '#',
-			items: [
-				{
-					title: 'Adding Promo code',
-					url: '#',
-					isActive: true,
-				},
-			],
-		},
-	],
-}
+import { data } from '@/constants'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 	return (
@@ -62,7 +33,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 						{data.navMain.map(item => (
 							<SidebarMenuItem key={item.title}>
 								<SidebarMenuButton asChild>
-									<Link href={item.url} className='font-medium'>
+									<Link href={item.url} className='font-semibold'>
 										{item.title}
 									</Link>
 								</SidebarMenuButton>
@@ -70,7 +41,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 									<SidebarMenuSub>
 										{item.items.map(item => (
 											<SidebarMenuSubItem key={item.title}>
-												<SidebarMenuSubButton asChild isActive={item.isActive}>
+												<SidebarMenuSubButton asChild>
 													<Link href={item.url}>{item.title}</Link>
 												</SidebarMenuSubButton>
 											</SidebarMenuSubItem>
