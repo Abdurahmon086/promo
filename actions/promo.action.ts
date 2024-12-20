@@ -13,19 +13,9 @@ export const getPromos = async () => {
 	}
 }
 
-export const createPromo = async () => {
+export const createPromo = async (data: unknown) => {
 	try {
 		await connectToDatabase()
-		const data = {
-			title_uz: 'asd',
-			title_ru: 'asd',
-			description_uz: 'String',
-			discription_ru: 'String',
-			price: 1212,
-			active: true,
-			code: 'asd5asd4',
-		}
-
 		await Promo.create(data)
 	} catch (error: unknown) {
 		throw new Error(`Failed to create promo ${error}`)

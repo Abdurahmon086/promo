@@ -5,7 +5,7 @@ const PromoSchema = new Schema(
 		title_uz: String,
 		title_ru: String,
 		description_uz: String,
-		discription_ru: String,
+		description_ru: String,
 		price: Number,
 		active: Boolean,
 		code: String,

@@ -1,3 +1,4 @@
+import PromoForm from '@/components/forms/promo.form'
 import HeaderDash from '../../_components/header'
 
 function Add() {
@@ -12,6 +13,7 @@ function Add() {
 				</div>
 				<div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
 			</div>
+			<PromoForm />
 		</>
 	)
 }
