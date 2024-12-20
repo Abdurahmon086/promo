@@ -31,7 +31,9 @@ function CompanyForm() {
 
 	function onSubmit(values: z.infer<typeof companyAddSchema>) {
 		setIsLoading(true)
-		const promise = creatCompanyAction({ ...values })
+		const promise = creatCompanyAction({
+			...values,
+		})
 			.then(() => form.reset())
 			.finally(() => setIsLoading(false))
 
