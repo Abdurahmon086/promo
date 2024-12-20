@@ -1,3 +1,4 @@
+import CompanyForm from '@/components/forms/company.form'
 import HeaderDash from '../../_components/header'
 
 export default function Page() {
@@ -5,12 +6,9 @@ export default function Page() {
 		<>
 			<HeaderDash head='Companies' head_link='dashboard/companies' title='Add Companies' />
 			<div className='flex flex-1 flex-col gap-4 p-4'>
-				<div className='grid auto-rows-min gap-4 md:grid-cols-3'>
-					<div className='aspect-video rounded-xl bg-muted/50' />
-					<div className='aspect-video rounded-xl bg-muted/50' />
-					<div className='aspect-video rounded-xl bg-muted/50' />
+				<div className='rounded-2xl bg-muted/50 p-4'>
+					<CompanyForm />
 				</div>
-				<div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
 			</div>
 		</>
 	)
