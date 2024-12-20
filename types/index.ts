@@ -9,6 +9,7 @@ export interface LngParams {
 }
 
 export interface ICompany {
+	_id?: string
 	id?: string
 	title: string
 	description: string

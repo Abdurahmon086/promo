@@ -1,9 +1,27 @@
+'use client'
+
+import { deleteCompanyAction } from '@/actions/company.action'
 import { ICompany } from '@/types'
 import { Edit2, Trash2 } from 'lucide-react'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+import { toast } from 'sonner'
 import CustomImage from '../shared/custom-image'
 import { Button } from '../ui/button'
 
 function DashCompCard({ item }: { item: ICompany }) {
+	const [isLoading, setIsLoading] = useState(false)
+	const path = usePathname()
+	const handleDelete = (id: string | undefined) => {
+		setIsLoading(true)
+		const promise = deleteCompanyAction(id, path).finally(() => setIsLoading(false))
+
+		toast.promise(promise, {
+			loading: 'Deleting Company...',
+			success: 'Company Deleted',
+			error: 'Failed to delete Company',
+		})
+	}
 	return (
 		<div className='w-full flex items-center gap-4 bg-muted/50 rounded-2xl p-3 '>
 			<div className='flex items-center space-x-5'>
@@ -16,11 +34,11 @@ function DashCompCard({ item }: { item: ICompany }) {
 				</div>
 			</div>
 			<div className='flex items-center space-x-3 ml-auto'>
-				<Button size={'lg'}>
+				<Button disabled={isLoading} size={'lg'}>
 					<Edit2 />
 				</Button>
-				<Button variant='destructive' size={'lg'}>
-					<Trash2 size={'2xl'} />
+				<Button disabled={isLoading} variant='destructive' size={'lg'} onClick={() => handleDelete(item?._id)}>
+					<Trash2 />
 				</Button>
 			</div>
 		</div>
