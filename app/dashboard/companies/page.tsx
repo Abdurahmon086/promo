@@ -1,16 +1,19 @@
+import { getCompaniesAction } from '@/actions/company.action'
+import DashCompCard from '@/components/cards/dash-comp-card'
 import HeaderDash from '../_components/header'
 
-function Companies() {
+async function Companies() {
+	const data = await getCompaniesAction()
+
 	return (
 		<>
 			<HeaderDash head='Companies' head_link='dashboard/companies' />
 			<div className='flex flex-1 flex-col gap-4 p-4'>
-				<div className='grid auto-rows-min gap-4 md:grid-cols-3'>
-					<div className='aspect-video rounded-xl bg-muted/50' />
-					<div className='aspect-video rounded-xl bg-muted/50' />
-					<div className='aspect-video rounded-xl bg-muted/50' />
+				<div className='grid grid-cols-1 space-y-4'>
+					{data.map(item => (
+						<DashCompCard key={item?.id} item={item} />
+					))}
 				</div>
-				<div className='min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min' />
 			</div>
 		</>
 	)

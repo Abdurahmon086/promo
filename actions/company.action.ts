@@ -2,11 +2,20 @@
 
 import Company from '@/database/company.model'
 import { connectToDatabase } from '@/lib/mongoose'
+import { ICompany } from '@/types'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const creatCompanyAction = async (data: any) => {
+export const getCompaniesAction = async () => {
 	try {
-		console.log(data)
+		await connectToDatabase()
+		const companies: ICompany[] = await Company.find()
+		return companies
+	} catch (err) {
+		throw new Error(`Failed to get companies ${err as string}`)
+	}
+}
+
+export const creatCompanyAction = async (data: ICompany) => {
+	try {
 		await connectToDatabase()
 		await Company.create({ ...data })
 	} catch (err) {
