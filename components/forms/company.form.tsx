@@ -1,10 +1,13 @@
 'use client'
 
-import { creatCompanyAction } from '@/actions/company.action'
+import { creatCompanyAction, getCompaniesByIdAction, updateCompanyAction } from '@/actions/company.action'
+import { useReview } from '@/hooks/use-review'
 import { companyAddSchema } from '@/lib/validation'
+import { ICompany } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Send } from 'lucide-react'
-import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -15,8 +18,10 @@ import { Input } from '../ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 
-function CompanyForm() {
-	const [isLoading, setIsLoading] = useState(false)
+function CompanyForm({ name, id = '1' }: { name?: string; id?: string }) {
+	const { isLoading, onClose, startLoading, stopLoading, isOpen } = useReview()
+	const [isCompany, setIsCompany] = useState<ICompany | null>(null)
+	const path = usePathname()
 
 	const form = useForm<z.infer<typeof companyAddSchema>>({
 		resolver: zodResolver(companyAddSchema),
@@ -30,19 +35,54 @@ function CompanyForm() {
 	})
 
 	function onSubmit(values: z.infer<typeof companyAddSchema>) {
-		setIsLoading(true)
-		const promise = creatCompanyAction({
-			...values,
-		})
-			.then(() => form.reset())
-			.finally(() => setIsLoading(false))
+		startLoading()
+		let promise
+
+		if (name === 'update') {
+			promise = updateCompanyAction(
+				id,
+				{
+					...values,
+				},
+				path
+			)
+				.then(() => {
+					form.reset()
+					onClose()
+				})
+				.finally(() => stopLoading())
+		} else {
+			promise = creatCompanyAction({
+				...values,
+			})
+				.then(() => form.reset())
+				.finally(() => stopLoading())
+		}
 
 		toast.promise(promise, {
-			loading: 'Creating company...',
-			success: 'Company created successfully',
-			error: 'Failed to create company',
+			loading: `${name ? name : 'Creating'} company...`,
+			success: `Company ${name ? name : 'Created'} successfully`,
+			error: `Failed to ${name ? name : 'Create'} company`,
 		})
 	}
+
+	useEffect(() => {
+		const fetchCompany = async () => {
+			startLoading()
+			const res: ICompany = await getCompaniesByIdAction(id)
+			if (res) {
+				setIsCompany(res)
+			}
+			form.setValue('title', res?.title)
+			form.setValue('active', res?.active)
+			form.setValue('website', res?.website)
+			form.setValue('description', res?.description)
+			stopLoading()
+		}
+
+		fetchCompany()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isOpen])
 
 	return (
 		<Form {...form}>
@@ -125,7 +165,7 @@ function CompanyForm() {
 						)}
 					/>
 					<Button className='w-fit rounded-full' size={'lg'} type='submit' disabled={isLoading}>
-						<span>send</span>
+						<span>{name ? name : 'Send'}</span>
 						<Send className='ml-2 size-4' />
 					</Button>
 				</div>
