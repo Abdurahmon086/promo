@@ -8,12 +8,12 @@ import { Button } from '../ui/button'
 import { Separator } from '../ui/separator'
 
 function DashCompModal({ id }: { id: string }) {
-	const { isOpen, isLoading, onOpen, onClose } = useReview()
+	const { isOpen, onOpen, onClose } = useReview()
 
 	return (
 		<Dialog open={isOpen} onOpenChange={open => (open ? onOpen() : onClose())}>
 			<DialogTrigger asChild>
-				<Button disabled={isLoading} size={'lg'}>
+				<Button size={'lg'}>
 					<Edit2 />
 				</Button>
 			</DialogTrigger>

@@ -12,7 +12,7 @@ async function Companies() {
 			<div className='flex flex-1 flex-col gap-4 p-4'>
 				<div className='grid grid-cols-1 space-y-4'>
 					{data.map((item: ICompany) => (
-						<DashCompCard key={item?.id} item={item} />
+						<DashCompCard key={item?._id} item={item} />
 					))}
 				</div>
 			</div>

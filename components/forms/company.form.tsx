@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
+import LoadingComponents from '../shared/loading-components'
 import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
@@ -18,8 +19,9 @@ import { Input } from '../ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { Textarea } from '../ui/textarea'
 
-function CompanyForm({ name, id = '1' }: { name?: string; id?: string }) {
+function CompanyForm({ name, id }: { name?: string; id?: string }) {
 	const { isLoading, onClose, startLoading, stopLoading, isOpen } = useReview()
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isCompany, setIsCompany] = useState<ICompany | null>(null)
 	const path = usePathname()
 
@@ -38,7 +40,7 @@ function CompanyForm({ name, id = '1' }: { name?: string; id?: string }) {
 		startLoading()
 		let promise
 
-		if (name === 'update') {
+		if (name === 'update' && id) {
 			promise = updateCompanyAction(
 				id,
 				{
@@ -79,11 +81,13 @@ function CompanyForm({ name, id = '1' }: { name?: string; id?: string }) {
 			form.setValue('description', res?.description)
 			stopLoading()
 		}
-
 		fetchCompany()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isOpen])
 
+	if (name === 'update' && isLoading) {
+		return <LoadingComponents />
+	}
 	return (
 		<Form {...form}>
 			<form onSubmit={form.handleSubmit(onSubmit)} className='space-y-3'>
