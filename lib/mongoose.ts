@@ -16,6 +16,8 @@ export const connectToDatabase = async () => {
 		const options: ConnectOptions = {
 			dbName: 'promocodes',
 			autoCreate: true,
+			serverSelectionTimeoutMS: 10000,
+			socketTimeoutMS: 45000,
 		}
 
 		await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URL, options)

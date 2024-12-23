@@ -1,10 +1,11 @@
 import { getCompaniesAction } from '@/actions/company.action'
 import CompanyCard from '@/components/cards/company-card'
 import PromocodeCard from '@/components/cards/promocode-card'
+import { ICompany } from '@/types'
 import { Building2, TicketPercent } from 'lucide-react'
 
 async function Home() {
-	const companiesasdasd = await getCompaniesAction()
+	const companies = await getCompaniesAction()
 	return (
 		<>
 			<section className='companies container my-10'>
@@ -12,8 +13,8 @@ async function Home() {
 					<Building2 /> Companies
 				</h4>
 				<div className='grid grid-cols-6 gap-5 mt-3'>
-					{companiesasdasd.map(item => (
-						<CompanyCard key={item?.id} item={item} />
+					{companies.map((item: ICompany) => (
+						<CompanyCard key={item?._id} item={item} />
 					))}
 				</div>
 			</section>
