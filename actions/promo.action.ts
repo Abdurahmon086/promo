@@ -1,5 +1,6 @@
 'use server'
 
+import Company from '@/database/company.model'
 import Promo from '@/database/promo.model'
 import { connectToDatabase } from '@/lib/mongoose'
 import { IPromo } from '@/types'
@@ -9,7 +10,8 @@ export const getPromos = async () => {
 	try {
 		await connectToDatabase()
 		const promos = await Promo.find()
-		return JSON.parse(JSON.stringify(promos))
+		const promosData = await Company.populate(promos, { path: 'company_id' })
+		return JSON.parse(JSON.stringify(promosData))
 	} catch (error: unknown) {
 		throw new Error(`Failed to fetch promos ${error}`)
 	}
@@ -56,5 +58,15 @@ export const deletePromo = async (id: string, path: string) => {
 		revalidatePath(path)
 	} catch (err: unknown) {
 		throw new Error(`Failed to delete promo ${err}`)
+	}
+}
+
+export const updateActivePromo = async (id: string, active: boolean, path: string) => {
+	try {
+		await connectToDatabase()
+		await Promo.findByIdAndUpdate(id, { active })
+		revalidatePath(path)
+	} catch (err: unknown) {
+		throw new Error(`Failed to update active promo ${err}`)
 	}
 }

@@ -1,4 +1,6 @@
 import { getCompaniesAction } from '@/actions/company.action'
+import { getPromos } from '@/actions/promo.action'
+import { IPromo } from '@/actions/types'
 import CompanyCard from '@/components/cards/company-card'
 import PromocodeCard from '@/components/cards/promocode-card'
 import { ICompany } from '@/types'
@@ -6,6 +8,7 @@ import { Building2, TicketPercent } from 'lucide-react'
 
 async function Home() {
 	const companies = await getCompaniesAction()
+	const promos = await getPromos()
 	return (
 		<>
 			<section className='companies container my-10'>
@@ -23,11 +26,7 @@ async function Home() {
 					<TicketPercent /> Promo Codes
 				</h4>
 				<div className='flex'>
-					<div className='grid grid-cols-1 gap-4 mt-5 w-3/4'>
-						{[1, 2, 3, 4, 5, 6].map((_item, i) => (
-							<PromocodeCard key={i} />
-						))}
-					</div>
+					<div className='grid grid-cols-1 gap-4 mt-5 w-3/4'>{promos && promos?.map((item: IPromo) => <PromocodeCard key={item?._id} item={item} />)}</div>
 					<div className='w-1/4'></div>
 				</div>
 			</section>
