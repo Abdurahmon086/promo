@@ -36,7 +36,7 @@ function CompanyForm({ name, id }: { name?: string; id?: string }) {
 
 	function onSubmit(values: z.infer<typeof companyAddSchema>) {
 		startLoading()
-		
+
 		let promise
 		if (name === 'update' && id) {
 			promise = updateCompanyAction(
@@ -68,6 +68,7 @@ function CompanyForm({ name, id }: { name?: string; id?: string }) {
 
 	useEffect(() => {
 		const fetchCompany = async () => {
+			if (!id) return
 			startLoading()
 			const res: ICompany = await getCompaniesByIdAction(id)
 			if (res) {

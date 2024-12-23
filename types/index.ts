@@ -19,3 +19,14 @@ export interface ICompany {
 	createdAt?: number
 	updatedAt?: number
 }
+
+export interface IPromo {
+	_id?: string
+	id?: string
+	title: string
+	description: string
+	code: string
+	active: boolean
+	createdAt?: number
+	updatedAt?: number
+}
