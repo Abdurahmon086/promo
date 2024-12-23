@@ -7,7 +7,7 @@ import { ICompany } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Send } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -21,8 +21,6 @@ import { Textarea } from '../ui/textarea'
 
 function CompanyForm({ name, id }: { name?: string; id?: string }) {
 	const { isLoading, onClose, startLoading, stopLoading, isOpen } = useReview()
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const [isCompany, setIsCompany] = useState<ICompany | null>(null)
 	const path = usePathname()
 
 	const form = useForm<z.infer<typeof companyAddSchema>>({
@@ -38,8 +36,8 @@ function CompanyForm({ name, id }: { name?: string; id?: string }) {
 
 	function onSubmit(values: z.infer<typeof companyAddSchema>) {
 		startLoading()
+		
 		let promise
-
 		if (name === 'update' && id) {
 			promise = updateCompanyAction(
 				id,
@@ -73,12 +71,11 @@ function CompanyForm({ name, id }: { name?: string; id?: string }) {
 			startLoading()
 			const res: ICompany = await getCompaniesByIdAction(id)
 			if (res) {
-				setIsCompany(res)
+				form.setValue('title', res?.title)
+				form.setValue('active', res?.active)
+				form.setValue('website', res?.website)
+				form.setValue('description', res?.description)
 			}
-			form.setValue('title', res?.title)
-			form.setValue('active', res?.active)
-			form.setValue('website', res?.website)
-			form.setValue('description', res?.description)
 			stopLoading()
 		}
 		fetchCompany()
@@ -128,9 +125,9 @@ function CompanyForm({ name, id }: { name?: string; id?: string }) {
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem value='1'>1</SelectItem>
-										<SelectItem value='2'>2</SelectItem>
-										<SelectItem value='3'>3</SelectItem>
+										<SelectItem value='1'>Yandex</SelectItem>
+										<SelectItem value='2'>Uzum Tezkor</SelectItem>
+										<SelectItem value='3'>Wolt</SelectItem>
 									</SelectContent>
 								</Select>
 								<FormMessage />
