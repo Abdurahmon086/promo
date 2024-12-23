@@ -9,7 +9,7 @@ export const getPromos = async () => {
 	try {
 		await connectToDatabase()
 		const promos = await Promo.find()
-		return promos
+		return JSON.parse(JSON.stringify(promos))
 	} catch (error: unknown) {
 		throw new Error(`Failed to fetch promos ${error}`)
 	}
@@ -28,7 +28,12 @@ export const getPromoById = async (id: string) => {
 export const createPromo = async (data: IPromo) => {
 	try {
 		await connectToDatabase()
-		await Promo.create(data)
+		const datas = {
+			...data,
+			price: Number(data.price),
+		}
+
+		await Promo.create(datas)
 	} catch (error: unknown) {
 		throw new Error(`Failed to create promo ${error}`)
 	}

@@ -2,6 +2,7 @@ import PromoForm from '@/components/forms/promo.form'
 import HeaderDash from '../../_components/header'
 
 function Add() {
+	
 	return (
 		<>
 			<HeaderDash head='Promo Codes' head_link='dashboard/promocodes' title='Add Promo Code' />

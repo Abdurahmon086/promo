@@ -1,10 +1,12 @@
 'use client'
 
+import { getCompaniesAction } from '@/actions/company.action'
 import { createPromo } from '@/actions/promo.action'
 import { promoAddSchema } from '@/lib/validation'
+import { ICompany } from '@/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Send } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -16,6 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Textarea } from '../ui/textarea'
 
 function PromoForm() {
+	const [isCompaneis, setIsCompanies] = useState<ICompany[]>([])
 	const [isLoading, setIsLoading] = useState(false)
 
 	const form = useForm<z.infer<typeof promoAddSchema>>({
@@ -27,14 +30,14 @@ function PromoForm() {
 			description_ru: '',
 			active: false,
 			code: '',
-			price: '0',
-			company_id: undefined,
+			price: '',
+			company_id: '',
 		},
 	})
 
 	function onSubmit(values: z.infer<typeof promoAddSchema>) {
 		setIsLoading(true)
-		const promise = createPromo({ ...values, price: +values.price, company_id: +values.company_id, user_id: 1 })
+		const promise = createPromo({ ...values })
 			.then(() => form.reset())
 			.finally(() => setIsLoading(false))
 
@@ -44,6 +47,16 @@ function PromoForm() {
 			error: 'Failed to create promo',
 		})
 	}
+
+	useEffect(() => {
+		const getCompanies = async () => {
+			setIsLoading(true)
+			const companies = await getCompaniesAction()
+			setIsCompanies(companies)
+			setIsLoading(false)
+		}
+		getCompanies()
+	}, [])
 
 	return (
 		<Form {...form}>
@@ -111,9 +124,11 @@ function PromoForm() {
 										</SelectTrigger>
 									</FormControl>
 									<SelectContent>
-										<SelectItem value='1'>1</SelectItem>
-										<SelectItem value='2'>2</SelectItem>
-										<SelectItem value='3'>3</SelectItem>
+										{isCompaneis?.map((item: ICompany) => (
+											<SelectItem key={item._id?.toString()} value={item._id?.toString() ?? ''}>
+												{item?.title}
+											</SelectItem>
+										))}
 									</SelectContent>
 								</Select>
 								<FormMessage />

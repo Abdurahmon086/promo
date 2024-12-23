@@ -10,7 +10,6 @@ const PromoSchema = new Schema(
 		active: Boolean,
 		code: String,
 		company_id: { type: Schema.Types.ObjectId, ref: 'Company' },
-		user_id: { type: Schema.Types.ObjectId, ref: 'User' },
 	},
 	{ timestamps: true }
 )
