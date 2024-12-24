@@ -1,5 +1,6 @@
 'use client'
 
+import { updatePromo } from '@/actions/promo.action'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -25,75 +26,90 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
-
-export const columns: ColumnDef<IPromo>[] = [
-	{
-		accessorKey: 'active',
-		header: 'Actives',
-		cell: ({ row }) => <div className='capitalize'>{row.getValue('active') ? 'Active' : 'No Active'}</div>,
-	},
-	{
-		accessorKey: 'title_uz',
-		header: ({ column }) => {
-			return (
-				<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-					Titles
-					<ArrowUpDown />
-				</Button>
-			)
-		},
-		cell: ({ row }) => <div className='lowercase'>{row.getValue('title_uz')}</div>,
-	},
-	{
-		accessorKey: 'description_uz',
-		header: 'Descriptiones',
-		cell: ({ row }) => <div className='lowercase line-clamp-1'>{row.getValue('description_uz')}</div>,
-	},
-	{
-		accessorKey: 'price',
-		header: () => <div className='text-right'>Amount</div>,
-		cell: ({ row }) => {
-			const amount = parseFloat(row.getValue('price'))
-
-			const formatted = new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-			}).format(amount)
-
-			return <div className='text-right font-medium'>{formatted}</div>
-		},
-	},
-	{
-		id: 'actions',
-		enableHiding: false,
-		cell: () => {
-			return (
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button variant='ghost' className='h-8 w-8 p-0'>
-							<span className='sr-only'>Open menu</span>
-							<MoreHorizontal />
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align='end'>
-						<DropdownMenuLabel>Actions</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>Active</DropdownMenuItem>
-						<DropdownMenuItem>Edit</DropdownMenuItem>
-						<DropdownMenuItem>Delete</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			)
-		},
-	},
-]
+import { toast } from 'sonner'
 
 function PromosTable({ promos }: { promos: IPromo[] }) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 	const [rowSelection, setRowSelection] = useState({})
+
+	const path = usePathname()
+
+	const isActive = (id: string, active = true) => {
+		if (!id) return
+
+		const promise = updatePromo(id, { active } as IPromo, path)
+		toast.promise(promise, {
+			loading: 'Updating promo...',
+			success: 'Promo updated successfully',
+			error: 'Failed to update promo',
+		})
+	}
+
+	const columns: ColumnDef<IPromo>[] = [
+		{
+			accessorKey: 'active',
+			header: 'Actives',
+			cell: ({ row }) => <div className='capitalize'>{row.getValue('active') ? 'Active' : 'No Active'}</div>,
+		},
+		{
+			accessorKey: 'title_uz',
+			header: ({ column }) => {
+				return (
+					<Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
+						Titles
+						<ArrowUpDown />
+					</Button>
+				)
+			},
+			cell: ({ row }) => <div className='lowercase'>{row.getValue('title_uz')}</div>,
+		},
+		{
+			accessorKey: 'description_uz',
+			header: 'Descriptiones',
+			cell: ({ row }) => <div className='lowercase line-clamp-1'>{row.getValue('description_uz')}</div>,
+		},
+		{
+			accessorKey: 'price',
+			header: () => <div className='text-right'>Amount</div>,
+			cell: ({ row }) => {
+				const amount = parseFloat(row.getValue('price'))
+
+				const formatted = new Intl.NumberFormat('en-US', {
+					style: 'currency',
+					currency: 'USD',
+				}).format(amount)
+
+				return <div className='text-right font-medium'>{formatted}</div>
+			},
+		},
+		{
+			id: 'actions',
+			enableHiding: false,
+			cell: ({ row }) => {
+				return (
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant='ghost' className='h-8 w-8 p-0'>
+								<span className='sr-only'>Open menu</span>
+								<MoreHorizontal />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align='end'>
+							<DropdownMenuLabel>Actions</DropdownMenuLabel>
+							<DropdownMenuSeparator />
+							<DropdownMenuItem onClick={() => row.original._id && isActive(row.original._id, row.original.active)}>Active</DropdownMenuItem>
+							<DropdownMenuItem>Edit</DropdownMenuItem>
+							<DropdownMenuItem>Delete</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				)
+			},
+		},
+	]
 
 	const table = useReactTable({
 		data: promos,
