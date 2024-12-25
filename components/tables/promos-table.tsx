@@ -12,7 +12,8 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { IPromo } from '@/types'
+
+import { IPromo } from '@/actions/types'
 import {
 	ColumnDef,
 	ColumnFiltersState,
@@ -30,8 +31,9 @@ import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import DashPromoModal from '../modals/dash-promo.modal'
+import Pagination from '../shared/pagination'
 
-function PromosTable({ promos }: { promos: IPromo[] }) {
+function PromosTable({ promos, isNext, pageNumber }: { promos: IPromo[]; isNext: boolean; pageNumber: number }) {
 	const [sorting, setSorting] = useState<SortingState>([])
 	const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 	const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -83,6 +85,11 @@ function PromosTable({ promos }: { promos: IPromo[] }) {
 			accessorKey: 'description_uz',
 			header: 'Descriptiones',
 			cell: ({ row }) => <div className='lowercase line-clamp-1'>{row.getValue('description_uz')}</div>,
+		},
+		{
+			accessorKey: 'Companies',
+			header: () => <div className='text-center'>Companies</div>,
+			cell: ({ row }) => <div className='text-center'>{row.original.company_id.title}</div>,
 		},
 		{
 			accessorKey: 'price',
@@ -186,12 +193,7 @@ function PromosTable({ promos }: { promos: IPromo[] }) {
 			</div>
 			<div className='flex items-center justify-end space-x-2 py-4'>
 				<div className='space-x-2'>
-					<Button variant='outline' size='sm' onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-						Previous
-					</Button>
-					<Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-						Next
-					</Button>
+					<Pagination isNext={isNext} pageNumber={pageNumber} />
 				</div>
 			</div>
 		</div>

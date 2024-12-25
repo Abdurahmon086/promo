@@ -8,7 +8,7 @@ import { Building2, TicketPercent } from 'lucide-react'
 
 async function Home() {
 	const companies = await getCompaniesAction()
-	const promos = await getPromos()
+	const { promos } = await getPromos({ page: 1, pageSize: 6 })
 	return (
 		<>
 			<section className='companies container my-10'>

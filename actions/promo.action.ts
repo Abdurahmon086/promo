@@ -6,12 +6,16 @@ import { connectToDatabase } from '@/lib/mongoose'
 import { IPromo } from '@/types'
 import { revalidatePath } from 'next/cache'
 
-export const getPromos = async () => {
+export const getPromos = async (params: { page: number; pageSize: number }) => {
 	try {
 		await connectToDatabase()
-		const promos = await Promo.find({})
-		const promosData = await Company.populate(promos, { path: 'company_id' })
-		return JSON.parse(JSON.stringify(promosData))
+		const { page = 1, pageSize = 3 } = params
+		const skipPage = (page - 1) * pageSize
+		const promos = await Promo.find({}).skip(skipPage).limit(pageSize).sort({ createdAt: -1 }).populate({ path: 'company_id', model: Company })
+		const totalPromos = await Promo.countDocuments()
+		const isNext = totalPromos > skipPage + promos.length
+
+		return { promos: JSON.parse(JSON.stringify(promos)), isNext, totalPromos }
 	} catch (error) {
 		throw new Error(`Failed to fetch promos ${error}`)
 	}
