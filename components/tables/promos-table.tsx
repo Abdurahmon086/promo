@@ -1,6 +1,6 @@
 'use client'
 
-import { updatePromo } from '@/actions/promo.action'
+import { deletePromo, updateActivePromo } from '@/actions/promo.action'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -29,6 +29,7 @@ import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import DashPromoModal from '../modals/dash-promo.modal'
 
 function PromosTable({ promos }: { promos: IPromo[] }) {
 	const [sorting, setSorting] = useState<SortingState>([])
@@ -38,14 +39,25 @@ function PromosTable({ promos }: { promos: IPromo[] }) {
 
 	const path = usePathname()
 
-	const isActive = (id: string, active = true) => {
+	const isActive = (id: string, active: boolean) => {
 		if (!id) return
 
-		const promise = updatePromo(id, { active } as IPromo, path)
+		const promise = updateActivePromo(id, (active = !active), path)
 		toast.promise(promise, {
 			loading: 'Updating promo...',
-			success: 'Promo updated successfully',
-			error: 'Failed to update promo',
+			success: 'Promo active updated successfully',
+			error: 'Failed to active update promo',
+		})
+	}
+
+	const deletePromoById = (id: string) => {
+		if (!id) return
+
+		const promise = deletePromo(id, path)
+		toast.promise(promise, {
+			loading: 'Deleting promo...',
+			success: 'Promo deleted successfully',
+			error: 'Failed to delete promo',
 		})
 	}
 
@@ -101,9 +113,11 @@ function PromosTable({ promos }: { promos: IPromo[] }) {
 						<DropdownMenuContent align='end'>
 							<DropdownMenuLabel>Actions</DropdownMenuLabel>
 							<DropdownMenuSeparator />
-							<DropdownMenuItem onClick={() => row.original._id && isActive(row.original._id, row.original.active)}>Active</DropdownMenuItem>
-							<DropdownMenuItem>Edit</DropdownMenuItem>
-							<DropdownMenuItem>Delete</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => row.original._id && isActive(row.original._id, row.original.active)}>
+								{!row.original.active ? 'Active' : 'No Active'}
+							</DropdownMenuItem>
+							<DropdownMenuItem asChild>{row.original._id && <DashPromoModal id={row.original._id} />}</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => row.original._id && deletePromoById(row.original._id)}>Delete</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				)

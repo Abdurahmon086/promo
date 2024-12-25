@@ -20,7 +20,7 @@ export const getPromos = async () => {
 export const getPromoById = async (id: string) => {
 	try {
 		await connectToDatabase()
-		const promo = await Promo.findById(id)
+		const promo = await Promo.findById(id).populate('company_id')
 		return JSON.parse(JSON.stringify(promo))
 	} catch (error: unknown) {
 		throw new Error(`Failed to fetch promo by id ${error}`)
