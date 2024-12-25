@@ -40,6 +40,7 @@ function PromoUpdateForm({ id }: { id: string }) {
 			company_id: '',
 		},
 	})
+	console.log(promo)
 
 	function onSubmit(values: z.infer<typeof promoAddSchema>) {
 		startLoading()

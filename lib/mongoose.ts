@@ -1,4 +1,5 @@
 import mongoose, { ConnectOptions } from 'mongoose'
+
 let isConnected: boolean = false
 
 export const connectToDatabase = async () => {
@@ -16,13 +17,11 @@ export const connectToDatabase = async () => {
 		const options: ConnectOptions = {
 			dbName: 'promocodes',
 			autoCreate: true,
-			serverSelectionTimeoutMS: 10000,
-			socketTimeoutMS: 45000,
 		}
 
 		await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URL, options)
 		isConnected = true
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (error) {
 		console.log('MongoDB connection failed')
 	}

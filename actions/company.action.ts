@@ -8,7 +8,7 @@ import { revalidatePath } from 'next/cache'
 export const getCompaniesAction = async () => {
 	try {
 		await connectToDatabase()
-		const companies: ICompany[] = await Company.find()
+		const companies: ICompany[] = await Company.find({})
 		return JSON.parse(JSON.stringify(companies))
 	} catch (err) {
 		throw new Error(`Failed to get companies ${err as string}`)
