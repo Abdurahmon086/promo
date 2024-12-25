@@ -3,17 +3,20 @@ import { getPromos } from '@/actions/promo.action'
 import { IPromo } from '@/actions/types'
 import CompanyCard from '@/components/cards/company-card'
 import PromocodeCard from '@/components/cards/promocode-card'
-import { ICompany } from '@/types'
+import Pagination from '@/components/shared/pagination'
+import { ICompany, SearchParamsProps } from '@/types'
 import { Building2, TicketPercent } from 'lucide-react'
 
-async function Home() {
+async function Home({ searchParams }: SearchParamsProps) {
+	const page = Number(searchParams?.page) || 1
+
 	const companies = await getCompaniesAction()
-	const { promos } = await getPromos({ page: 1, pageSize: 6 })
+	const { promos, isNext } = await getPromos({ page, pageSize: 2 })
 	return (
 		<>
 			<section className='companies container my-10'>
 				<h4 className='title flex gap-2 items-center'>
-					<Building2 /> Companies
+					<Building2 /> Kampanyalar
 				</h4>
 				<div className='grid grid-cols-6 gap-5 mt-3'>
 					{companies.map((item: ICompany) => (
@@ -22,11 +25,15 @@ async function Home() {
 				</div>
 			</section>
 			<section className='promocodes container my-10'>
-				<h4 className='title flex gap-2 items-center'>
-					<TicketPercent /> Promo Codes
+				<h4 className='title flex gap-2 items-center '>
+					<TicketPercent /> Promo kodlar
 				</h4>
 				<div className='flex'>
-					<div className='grid grid-cols-1 gap-4 mt-5 w-3/4'>{promos && promos?.map((item: IPromo) => <PromocodeCard key={item?._id} item={item} />)}</div>
+					<div className='grid grid-cols-1 gap-4 mt-5 w-3/4'>
+						{promos && promos?.map((item: IPromo) => <PromocodeCard key={item?._id} item={item} />)}
+						<Pagination isNext={isNext} pageNumber={page} />
+					</div>
+
 					<div className='w-1/4'></div>
 				</div>
 			</section>

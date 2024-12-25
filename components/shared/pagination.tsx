@@ -29,11 +29,11 @@ function Pagination({ isNext, pageNumber }: Props) {
 	return (
 		<div className='flex w-full items-center justify-center gap-2'>
 			<Button variant='outline' size='sm' onClick={() => onNavigate('prev')} disabled={pageNumber === 1}>
-				Prev
+				Orqaga
 			</Button>
 			<div className='flex items-center justify-center rounded-md px-3.5 py-2 font-space-grotesk'>{pageNumber}</div>
 			<Button variant='outline' size='sm' onClick={() => onNavigate('next')} disabled={!isNext}>
-				Next
+				Oldinga
 			</Button>
 		</div>
 	)
