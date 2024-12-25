@@ -28,13 +28,13 @@ async function Home({ searchParams }: SearchParamsProps) {
 				<h4 className='title flex gap-2 items-center '>
 					<TicketPercent /> Promo kodlar
 				</h4>
-				<div className='flex'>
-					<div className='grid grid-cols-1 gap-4 mt-5 w-3/4'>
+				<div className='grid grid-cols-4'>
+					<div className='col-span-3 w-full grid grid-cols-1 gap-4 mt-5 '>
 						{promos && promos?.map((item: IPromo) => <PromocodeCard key={item?._id} item={item} />)}
 						<Pagination isNext={isNext} pageNumber={page} />
 					</div>
 
-					<div className='w-1/4'></div>
+					<div className='col-span-1'></div>
 				</div>
 			</section>
 		</>
