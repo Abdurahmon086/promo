@@ -88,7 +88,7 @@ function PromoUpdateForm({ id }: { id: string }) {
 					render={({ field }) => (
 						<FormItem>
 							<FormControl>
-								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'title'} {...field} />
+								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'Sarlavha uzbek tilda'} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -100,7 +100,7 @@ function PromoUpdateForm({ id }: { id: string }) {
 					render={({ field }) => (
 						<FormItem>
 							<FormControl>
-								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'title'} {...field} />
+								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'Sarlavha rus tilda'} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -113,7 +113,7 @@ function PromoUpdateForm({ id }: { id: string }) {
 					render={({ field }) => (
 						<FormItem>
 							<FormControl>
-								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'Code'} {...field} />
+								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'Kod'} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -125,7 +125,7 @@ function PromoUpdateForm({ id }: { id: string }) {
 					render={({ field }) => (
 						<FormItem>
 							<FormControl>
-								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'Code'} {...field} />
+								<Input disabled={isLoading} className='h-14 resize-none' placeholder={'Qancha'} {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -139,7 +139,7 @@ function PromoUpdateForm({ id }: { id: string }) {
 							<Select onValueChange={field.onChange} defaultValue={field.value}>
 								<FormControl>
 									<SelectTrigger className='h-14 resize-none'>
-										<SelectValue placeholder='Select a company' />
+										<SelectValue placeholder='Kampanylardan birini tanlang' />
 									</SelectTrigger>
 								</FormControl>
 								<SelectContent>
@@ -160,11 +160,8 @@ function PromoUpdateForm({ id }: { id: string }) {
 					name='description_uz'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>
-								Short description<span className='text-red-500'>*</span>
-							</FormLabel>
 							<FormControl>
-								<Textarea {...field} className='h-32 bg-secondary' placeholder='Description' disabled={isLoading} />
+								<Textarea {...field} className='h-32 bg-secondary' placeholder='Matn uzbek tilda' disabled={isLoading} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -175,11 +172,8 @@ function PromoUpdateForm({ id }: { id: string }) {
 					name='description_ru'
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>
-								Short description<span className='text-red-500'>*</span>
-							</FormLabel>
 							<FormControl>
-								<Textarea {...field} className='h-32 bg-secondary' placeholder='Description' disabled={isLoading} />
+								<Textarea {...field} className='h-32 bg-secondary' placeholder='Matn rus tilda' disabled={isLoading} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -195,13 +189,13 @@ function PromoUpdateForm({ id }: { id: string }) {
 									<Checkbox checked={field.value} onCheckedChange={field.onChange} />
 								</FormControl>
 								<div className='space-y-1 leading-none'>
-									<FormLabel>Active</FormLabel>
+									<FormLabel>Ishlaydimi</FormLabel>
 								</div>
 							</FormItem>
 						)}
 					/>
 					<Button className='w-fit rounded-full' size={'lg'} type='submit' disabled={isLoading}>
-						<span>send</span>
+						<span>Yangilash</span>
 						<Send className='ml-2 size-4' />
 					</Button>
 				</div>
