@@ -94,7 +94,7 @@ body {
 }
 
 .title {
-	@apply text-2xl font-bold hover:opacity-75;
+	@apply text-2xl font-bold;
 }
 
 .promocodes .card__wrapper {

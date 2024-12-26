@@ -78,3 +78,18 @@ export const updateActivePromo = async (id: string, active: boolean, path: strin
 		throw new Error(`Failed to update active promo ${err}`)
 	}
 }
+
+export const searchPromo = async (value?: string) => {
+	try {
+		await connectToDatabase()
+		const query = value ? { title_uz: { $regex: value, $options: 'i' } } : {}
+		const promos = await Promo.find(query).populate({
+			path: 'company_id',
+			select: '_id title image',
+			model: Company,
+		})
+		return JSON.parse(JSON.stringify(promos))
+	} catch (err) {
+		throw new Error(`Failed to search promo ${err}`)
+	}
+}

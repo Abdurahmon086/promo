@@ -11,7 +11,7 @@ async function Home({ searchParams }: SearchParamsProps) {
 	const page = Number(searchParams?.page) || 1
 
 	const companies = await getCompaniesAction()
-	const { promos, isNext } = await getPromos({ page, pageSize: 2 })
+	const { promos, isNext } = await getPromos({ page, pageSize: 3 })
 	return (
 		<>
 			<section className='companies container my-10'>
