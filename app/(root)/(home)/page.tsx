@@ -29,10 +29,15 @@ async function Home({ searchParams }: SearchParamsProps) {
 					<TicketPercent /> Promo kodlar
 				</h4>
 				<div className='grid grid-cols-4'>
-					<div className='col-span-3 w-full grid grid-cols-1 gap-4 mt-5 '>
-						{promos && promos?.map((item: IPromo) => <PromocodeCard key={item?._id} item={item} />)}
+					<ul className='col-span-3 w-full grid grid-cols-1 gap-4 mt-5 '>
+						{promos &&
+							promos?.map((item: IPromo) => (
+								<li key={item?._id}>
+									<PromocodeCard item={item} />
+								</li>
+							))}
 						<Pagination isNext={isNext} pageNumber={page} />
-					</div>
+					</ul>
 
 					<div className='col-span-1'></div>
 				</div>

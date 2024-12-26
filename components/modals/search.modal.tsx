@@ -9,7 +9,7 @@ import { useState } from 'react'
 import LoadingComponents from '../shared/loading-components'
 
 function SearchModal() {
-	const { startLoading, isOpen, isLoading, stopLoading, onClose } = useReview()
+	const { startLoading, isOpen, isLoading, stopLoading, onClose, onOpen } = useReview()
 	const [value, setValue] = useState<string>('')
 	const router = useRouter()
 
@@ -19,9 +19,11 @@ function SearchModal() {
 		onClose()
 		stopLoading()
 	}
+	
 	if (isLoading) return <LoadingComponents />
+
 	return (
-		<Dialog defaultOpen={isOpen}>
+		<Dialog open={isOpen} onOpenChange={open => (open ? onOpen() : onClose())}>
 			<DialogTrigger asChild>
 				<Button size={'icon'} variant={'default'}>
 					<SearchIcon type='icon' />
