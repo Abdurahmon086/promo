@@ -3,12 +3,12 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useReview } from '@/hooks/use-review'
-import { cn } from '@/lib/utils'
+import { SearchIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import LoadingComponents from '../shared/loading-components'
 
-function PromoModal({ active }: { active: boolean }) {
+function SearchModal() {
 	const { startLoading, isOpen, isLoading, stopLoading, onClose } = useReview()
 	const [value, setValue] = useState<string>('')
 	const router = useRouter()
@@ -23,8 +23,8 @@ function PromoModal({ active }: { active: boolean }) {
 	return (
 		<Dialog defaultOpen={isOpen}>
 			<DialogTrigger asChild>
-				<Button disabled={active} className={cn('w-full')}>
-					Ochish
+				<Button size={'icon'} variant={'default'}>
+					<SearchIcon type='icon' />
 				</Button>
 			</DialogTrigger>
 			<DialogContent className='sm:max-w-[425px]'>
@@ -45,4 +45,4 @@ function PromoModal({ active }: { active: boolean }) {
 	)
 }
 
-export default PromoModal
+export default SearchModal

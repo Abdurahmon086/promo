@@ -1,6 +1,6 @@
 import { IPromo } from '@/actions/types'
 import { cn } from '@/lib/utils'
-import PromoModal from '../modals/promo.modal'
+import PromoModal from '../modals/search.modal'
 import CustomImage from '../shared/custom-image'
 
 function PromocodeCard({ item }: { item: IPromo }) {
@@ -21,7 +21,7 @@ function PromocodeCard({ item }: { item: IPromo }) {
 			<div className='card__right w-1/4 py-5 px-10 rounded-tr-2xl rounded-br-2xl flex flex-col items-center justify-center gap-3'>
 				<h5 className='text-2xl text-center'>{item?.price} som</h5>
 
-				<PromoModal active={!item?.active} />
+				<PromoModal />
 			</div>
 		</div>
 	)

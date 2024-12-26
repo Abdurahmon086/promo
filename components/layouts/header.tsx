@@ -1,3 +1,4 @@
+import PromoModal from '../modals/search.modal'
 import Logo from '../shared/logo'
 import { ModeToggle } from '../shared/modal-toggle'
 
@@ -7,8 +8,8 @@ function Header() {
 			<div className='flex items-center py-5 '>
 				<Logo />
 
-				<div className='ml-auto flex gap-5 items-center'>
-					search
+				<div className='ml-auto flex gap-3 items-center'>
+					<PromoModal />
 					<div className=''>
 						<ModeToggle />
 					</div>
