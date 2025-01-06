@@ -9,7 +9,7 @@ import { Building2, TicketPercent } from 'lucide-react'
 
 async function Home({ searchParams }: SearchParamsProps) {
 	const params = await searchParams
-	const page = Number(params.page) || 1
+	const page = Number(params?.page) || 1
 
 	const companies = await getCompaniesAction()
 	const { promos, isNext } = await getPromos({ page, pageSize: 3 })
