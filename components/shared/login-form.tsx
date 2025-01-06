@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -15,34 +16,36 @@ export function LoginForm({ type }: { type: 'sign-in' | 'sign-up' }) {
 		message: string
 		token?: string
 	}
-	const [user, setUser] = useState<AuthResponse | null>(null)
-	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const [isLoading, setIsLoading] = useState(false)
+	const router = useRouter()
 
-	function handleSubmit(event: FormEvent<HTMLFormElement>) {
-		setIsLoading(true)
+	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
+		setIsLoading(true)
 
 		const formData = new FormData(event.currentTarget)
 		const data = {
 			email: String(formData.get('email') || ''),
 			password: String(formData.get('password') || ''),
 		}
-		let promise
-		if (type == 'sign-up') {
-			promise = signUp({ ...data, username: String(formData.get('username') || '') })
-				.then(res => setUser(res))
-				.finally(() => setIsLoading(false))
-		} else {
-			promise = signIn(data)
-				.then(res => setUser(res))
-				.finally(() => setIsLoading(false))
-		}
 
-		toast.promise(promise, {
-			loading: 'Creating promo...',
-			success: user?.message,
-			error: 'Failed to email or password',
-		})
+		const authAction = type === 'sign-up' ? signUp({ ...data, username: String(formData.get('username') || '') }) : signIn(data)
+
+		try {
+			const res = await authAction
+
+			await toast.promise(authAction, {
+				loading: 'Processing...',
+				success: (data: AuthResponse) => data.message,
+				error: 'Failed to authenticate. Check email or password.',
+			})
+
+			if (res?.success) {
+				router.push('/dashboard')
+			}
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	return (
