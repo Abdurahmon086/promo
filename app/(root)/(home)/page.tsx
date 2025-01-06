@@ -8,8 +8,9 @@ import { ICompany, SearchParamsProps } from '@/types'
 import { Building2, TicketPercent } from 'lucide-react'
 
 async function Home({ searchParams }: SearchParamsProps) {
-	const page = Number(searchParams?.page) || 1
-
+	const params = await searchParams
+	const page = Number(params.page) || 1
+	
 	const companies = await getCompaniesAction()
 	const { promos, isNext } = await getPromos({ page, pageSize: 3 })
 	return (
