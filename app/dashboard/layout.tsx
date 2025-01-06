@@ -6,18 +6,13 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export default async function DashboardLayout({ children }: ChildProps) {
-	const cookieStore = await cookies()
-	const token = cookieStore.get('buyer_token')?.value
-	if (token) {
-		console.log(token)
-		const res = await loginCheck(token)
+	const cookie = await cookies()
+	const token = cookie.get('buyer_token')?.value
 
-		if (!res) {
-			redirect('/sign-in')
-		}
-	} else {
+	if (!token || !(await loginCheck(token))) {
 		redirect('/sign-in')
 	}
+
 	return (
 		<SidebarProvider>
 			<AppSidebar />
