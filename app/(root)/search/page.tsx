@@ -3,13 +3,12 @@ import { IPromo } from '@/actions/types'
 import PromocodeCard from '@/components/cards/promocode-card'
 
 interface searchParamsProps {
-	searchParams: {
-		search?: string
-	}
+	searchParams: Promise<{ search?: string | undefined }>
 }
 
 async function Search({ searchParams }: searchParamsProps) {
-	const value = (await searchParams?.search) ?? ''
+	const searchParam = await searchParams
+	const value = searchParam?.search || ''
 
 	const data = await searchPromo(value)
 	console.log(data)

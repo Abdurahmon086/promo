@@ -4,7 +4,7 @@ export interface ChildProps {
 	children: ReactNode
 }
 export interface SearchParamsProps {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+	searchParams: Promise<{ page?: string | undefined }>
 }
 
 export interface LngParams {

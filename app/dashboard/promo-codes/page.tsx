@@ -4,7 +4,8 @@ import { SearchParamsProps } from '@/types'
 import HeaderDash from '../_components/header'
 
 async function PromoCodes({ searchParams }: SearchParamsProps) {
-	const page = Number(searchParams?.page) || 1
+	const searchParam = await searchParams
+	const page = Number(searchParam?.page) || 1
 
 	const { promos, isNext } = await getPromos({ page, pageSize: 20 })
 	return (
