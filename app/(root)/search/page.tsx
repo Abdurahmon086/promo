@@ -19,7 +19,7 @@ export async function generateMetadata({ searchParams }: searchParamsProps, pare
 		keywords: ['search', value, 'promo', 'promocodes'],
 
 		openGraph: {
-			images: [`${data[0]?.company_id?.image ?? '/logo.svg'} `, ...previousImages],
+			images: [data[0]?.company_id?.image ? `/images/${data[0].company_id.image}.jpg` : '/logo.svg', ...previousImages],
 		},
 	}
 }
@@ -28,7 +28,6 @@ async function Search({ searchParams }: searchParamsProps) {
 	const value = searchParam?.search || ''
 
 	const data = await searchPromo(value)
-	console.log(data)
 	return (
 		<div className='mt-12'>
 			<section className='container'>

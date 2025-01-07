@@ -10,7 +10,7 @@ import { Metadata } from 'next'
 
 export const metadata: Metadata = {
 	title: {
-		default: 'promocodes.uz',
+		default: 'Promocodes.uz',
 		template: '%s | Promocodes.uz',
 	},
 	description: 'Promocodes.uz - O‘zbekiston vs jahondagi eng muhim va dolzarb masalalarning tahlili. Eng so‘nggi yangiliklar, tahlillar va sharhlar.',
