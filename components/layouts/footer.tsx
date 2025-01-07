@@ -1,18 +1,20 @@
 import Link from 'next/link'
-import Logo from '../shared/logo'
+import { Button } from '../ui/button'
 
 function Footer() {
 	return (
 		<div className='container'>
-			<div className=''>
+			{/* <div className=''>
 				<Logo />
-			</div>
+			</div> */}
 			<p className='text-center text-sm py-3'>
 				© Developed by <span></span>
-				<Link href={'https://github.com/Abdurahmon086'} target='_blank' className='text-yellow-400'>
-					Abdurahmon
-				</Link>
-				. 2024
+				<Button variant={'link'} asChild className='!p-0'>
+					<Link href={'https://github.com/Abdurahmon086'} target='_blank' className=''>
+						Abdurahmon
+					</Link>
+				</Button>
+				. 2025
 			</p>
 		</div>
 	)
