@@ -1,9 +1,12 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 function Logo() {
 	return (
 		<Link href='/'>
-			<h4 className='text-2xl font-bold'>PROMO-CODES</h4>
+			<div className='relative w-[176px] h-[40px]'>
+				<Image src='/logo-full.svg' alt='promo codes logo' fill />
+			</div>
 		</Link>
 	)
 }
