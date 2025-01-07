@@ -9,7 +9,7 @@ interface searchParamsProps {
 export async function generateMetadata({ searchParams }: searchParamsProps, parent: ResolvingMetadata): Promise<Metadata> {
 	const searchParam = await searchParams
 	const value = searchParam?.search || ''
-	const data = (await searchPromo(value)) ?? []
+	const data = await searchPromo(value)
 	const previousImages = (await parent).openGraph?.images || []
 
 	return {
