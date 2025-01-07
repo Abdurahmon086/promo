@@ -61,13 +61,17 @@ async function Home({ searchParams }: SearchParamsProps) {
 	return (
 		<>
 			<section className='companies container my-10'>
-				<h4 className='title flex gap-2 items-center'>
+				<h4 className='title flex gap-2 items-center mb-5 sm:mb-3'>
 					<Building2 /> Kampanyalar
 				</h4>
-				<div className='grid grid-cols-6 gap-5 mt-3'>
-					{companies.map((item: ICompany) => (
-						<CompanyCard key={item?._id} item={item} />
-					))}
+				<div className='overflow-x-auto'>
+					<ul className='flex gap-5'>
+						{companies.map((item: ICompany) => (
+							<li key={item?._id}>
+								<CompanyCard item={item} />
+							</li>
+						))}
+					</ul>
 				</div>
 			</section>
 			<section className='promocodes container my-10'>

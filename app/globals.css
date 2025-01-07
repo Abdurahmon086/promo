@@ -100,7 +100,17 @@ body {
 .promocodes .card__wrapper {
 	position: relative;
 }
+.overflow-x-auto {
+	display: flex;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	padding-bottom: 1rem;
+}
 
-/* .promocodes .card__wrapper .card__right {
-	@apply hover:origin-bottom-left hover:rotate-1;
-} */
+.overflow-x-auto::-webkit-scrollbar {
+	display: none;
+}
+
+.overflow-x-auto ul > li {
+	scroll-snap-align: start;
+}
