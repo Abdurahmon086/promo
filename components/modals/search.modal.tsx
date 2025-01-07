@@ -19,13 +19,13 @@ function SearchModal() {
 		onClose()
 		stopLoading()
 	}
-	
+
 	if (isLoading) return <LoadingComponents />
 
 	return (
 		<Dialog open={isOpen} onOpenChange={open => (open ? onOpen() : onClose())}>
 			<DialogTrigger asChild>
-				<Button size={'icon'} variant={'default'}>
+				<Button size={'icon'} variant={'default'} title='Search button'>
 					<SearchIcon type='icon' />
 				</Button>
 			</DialogTrigger>

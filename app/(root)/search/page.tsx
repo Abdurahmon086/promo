@@ -1,11 +1,28 @@
 import { searchPromo } from '@/actions/promo.action'
 import { IPromo } from '@/actions/types'
 import PromocodeCard from '@/components/cards/promocode-card'
+import { Metadata, ResolvingMetadata } from 'next'
 
 interface searchParamsProps {
 	searchParams: Promise<{ search?: string | undefined }>
 }
+export async function generateMetadata({ searchParams }: searchParamsProps, parent: ResolvingMetadata): Promise<Metadata> {
+	const searchParam = await searchParams
+	const value = searchParam?.search || ''
+	const data = (await searchPromo(value)) ?? []
+	const previousImages = (await parent).openGraph?.images || []
 
+	return {
+		title: value ? `${value} | promocode.uz` : 'promocode.uz',
+		description: `${data[0]?.description_uz}` || 'promocode.uz',
+		category: `${data[0]?.company_id?.title}` || 'promocode.uz',
+		keywords: ['search', value, 'promo', 'promocodes'],
+
+		openGraph: {
+			images: [`${data[0]?.company_id?.image ?? '/logo.svg'} `, ...previousImages],
+		},
+	}
+}
 async function Search({ searchParams }: searchParamsProps) {
 	const searchParam = await searchParams
 	const value = searchParam?.search || ''
