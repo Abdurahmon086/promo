@@ -74,7 +74,7 @@ async function Home({ searchParams }: SearchParamsProps) {
 				<h4 className='title flex gap-2 items-center '>
 					<TicketPercent /> Promo kodlar
 				</h4>
-				<div className='grid grid-cols-4'>
+				<div className='grid grid-cols-1 sm:grid-cols-4'>
 					<ul className='col-span-3 w-full grid grid-cols-1 gap-4 mt-5 '>
 						{promos &&
 							promos?.map((item: IPromo) => (
