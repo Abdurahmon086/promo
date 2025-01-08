@@ -23,7 +23,7 @@ function PromoModal({ item }: { item: IPromo }) {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<Button className='sm:w-full' disabled={!item?.active}>
+				<Button className='sm:w-full font-bold' disabled={!item?.active}>
 					Ochish
 				</Button>
 			</DialogTrigger>

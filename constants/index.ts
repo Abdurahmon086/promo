@@ -34,11 +34,6 @@ export const data: { navMain: NavItem[] } = {
 					title: 'Add Promo code',
 					url: '/dashboard/promo-codes/add',
 				},
-				{
-					id: 2,
-					title: 'Update Promo code',
-					url: '/dashboard/promo-codes/update',
-				},
 			],
 		},
 		{
@@ -50,11 +45,6 @@ export const data: { navMain: NavItem[] } = {
 					id: 1,
 					title: 'Add Company',
 					url: '/dashboard/companies/add',
-				},
-				{
-					id: 2,
-					title: 'Update Company',
-					url: '/dashboard/companies/update',
 				},
 			],
 		},

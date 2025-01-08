@@ -18,7 +18,7 @@ function HeaderDash({ head, head_link, title }: HeaderDashProps) {
 						<BreadcrumbItem className='hidden md:block'>
 							<BreadcrumbLink href={head_link}>{head}</BreadcrumbLink>
 						</BreadcrumbItem>
-						<BreadcrumbSeparator className='hidden md:block' />
+						{title && <BreadcrumbSeparator className='hidden md:block' />}
 						<BreadcrumbItem>
 							<BreadcrumbPage>{title}</BreadcrumbPage>
 						</BreadcrumbItem>
