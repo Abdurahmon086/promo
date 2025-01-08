@@ -34,7 +34,7 @@ async function Search({ searchParams }: searchParamsProps) {
 				<h4 className='title'>
 					Natija: <span className='text-primary'>{value}</span>
 				</h4>
-				<div className='grid grid-cols-4 mt-5'>
+				<div className='grid grid-cols-1 sm:grid-cols-4 mt-5'>
 					<ul className='col-span-3'>
 						{data?.map((item: IPromo) => (
 							<li key={item?._id}>

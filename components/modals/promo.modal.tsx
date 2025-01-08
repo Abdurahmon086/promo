@@ -30,21 +30,21 @@ function PromoModal({ item }: { item: IPromo }) {
 			<DialogContent className='sm:max-w-2xl'>
 				<DialogHeader>
 					<DialogTitle asChild>
-						<h4 className='title !text-3xl'> {item?.title_uz}</h4>
+						<h4 className='title !text-xl sm:!text-3xl'> {item?.title_uz}</h4>
 					</DialogTitle>
-					<DialogDescription className='text-base'>{item?.description_uz}</DialogDescription>
+					<DialogDescription className='text-sm sm:text-base'>{item?.description_uz}</DialogDescription>
 				</DialogHeader>
 				<div className='flex items-center space-x-2'>
 					<div className='grid flex-1 gap-2'>
-						<Input defaultValue={item?.code} readOnly className='h-14 !text-2xl' />
+						<Input defaultValue={item?.code} readOnly className='h-12 sm:h-14 !text-2xl' />
 					</div>
-					<Button type='submit' className='px-3 size-14 relative' onClick={handleCopy}>
+					<Button type='submit' className='px-3 size-12 sm:size-14 relative' onClick={handleCopy}>
 						<span className={cn('absolute -top-8 left-1 bg-foreground rounded py-1 px-2', isLoading ? 'block' : 'hidden')}>Copy</span>
-						<Copy className='!size-8' />
+						<Copy className='!size-6 sm:!size-8' />
 					</Button>
 				</div>
 				<div className='text-center'>
-					<Button className='underline' variant={'link'} onClick={() => window.open(item?.company_id?.website)}>
+					<Button className='text-sm sm:text-base underline' variant={'link'} onClick={() => window.open(item?.company_id?.website)}>
 						Do‘konga borish
 					</Button>
 				</div>
